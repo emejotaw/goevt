@@ -1,0 +1,12 @@
+mode: set
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:9.44,13.2 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:15.92,17.32 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:17.32,19.3 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:21.2,22.12 2 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:25.91,27.41 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:27.41,29.50 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:29.50,31.4 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:34.2,34.14 1 1
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:37.60,39.2 0 0
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:41.95,43.2 1 0
+github.com/emejotaw/goevt/pkg/events/event_dispatcher.go:45.42,49.2 2 1
