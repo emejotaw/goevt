@@ -121,6 +121,22 @@ func (e *EventDispatcherTestSuite) TestDispatch() {
 	}
 }
 
+func (e *EventDispatcherTestSuite) TestRemove() {
+
+	eventDispatcher := e.eventDispacther
+
+	for _, test := range e.tests {
+		err := eventDispatcher.Register(test.event.GetName(), test.handler)
+		e.Nil(err)
+	}
+
+	tests := append(e.tests, TestCase{event: &TestEvent{Name: "a"}, handler: new(TestHandler), expectedError: errors.New("event does not exists")})
+	for _, test := range tests {
+		err := eventDispatcher.Remove(test.event.GetName(), test.handler)
+		e.Equal(test.expectedError, err)
+	}
+}
+
 func (e *EventDispatcherTestSuite) TestClear() {
 
 	eventDispatcher := e.eventDispacther

@@ -1,6 +1,9 @@
 package events
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type EventDispatcher struct {
 	handlers map[string][]EventHandlerInterface
@@ -45,7 +48,19 @@ func (ed *EventDispatcher) Dispatch(event EventInterface) {
 }
 
 func (ed *EventDispatcher) Remove(eventName string, eventHandler EventHandlerInterface) error {
-	return nil
+
+	if ed.Has(eventName, eventHandler) {
+
+		for index, handler := range ed.handlers[eventName] {
+
+			if handler == eventHandler {
+				ed.handlers[eventName] = append(ed.handlers[eventName][:index], ed.handlers[eventName][index+1:]...)
+				return nil
+			}
+		}
+	}
+
+	return errors.New("event does not exists")
 }
 
 func (ed *EventDispatcher) Clear() error {
