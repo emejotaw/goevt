@@ -5,6 +5,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -43,6 +44,15 @@ type TestCase struct {
 	event         EventInterface
 	handler       EventHandlerInterface
 	expectedError error
+}
+
+type MockHandler struct {
+	mock.Mock
+}
+
+func (m *MockHandler) Handle(event EventInterface) error {
+	m.Called(event)
+	return nil
 }
 
 type EventDispatcherTestSuite struct {
@@ -90,6 +100,24 @@ func (e *EventDispatcherTestSuite) TestRegister() {
 
 		err := eventDispatcher.Register(test.event.GetName(), test.handler)
 		e.Equal(test.expectedError, err)
+	}
+}
+
+func (e *EventDispatcherTestSuite) TestDispatch() {
+
+	eventDispatcher := e.eventDispacther
+
+	for _, test := range e.tests {
+
+		mockHandler := &MockHandler{}
+		mockHandler.On("Handle", test.event)
+		err := eventDispatcher.Register(test.event.GetName(), mockHandler)
+		e.Nil(err)
+
+		eventDispatcher.Dispatch(test.event)
+
+		mockHandler.AssertExpectations(e.T())
+		mockHandler.AssertNumberOfCalls(e.T(), "Handle", 1)
 	}
 }
 

@@ -36,6 +36,12 @@ func (ed *EventDispatcher) Has(eventName string, eventHandler EventHandlerInterf
 
 func (ed *EventDispatcher) Dispatch(event EventInterface) {
 
+	if _, ok := ed.handlers[event.GetName()]; ok {
+
+		for _, handler := range ed.handlers[event.GetName()] {
+			handler.Handle(event)
+		}
+	}
 }
 
 func (ed *EventDispatcher) Remove(eventName string, eventHandler EventHandlerInterface) error {
